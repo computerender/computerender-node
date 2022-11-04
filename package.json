@@ -1,8 +1,8 @@
 {
   "name": "computerender",
   "type": "module",
-  "version": "0.0.2",
-  "description": "client for the computerender API client",
+  "version": "0.0.3",
+  "description": "client for the computerender API",
   "author": "computerender <peter@computerender.com>",
   "license": "MIT",
   "homepage": "https://github.com/computerender/computerender-node",
