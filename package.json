@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "description": "",
   "author": "computerender <peter@computerender.com>",
+  "description": "client for the computerender API client",
   "license": "MIT",
   "homepage": "https://github.com/computerender/computerender-node",
   "repository": {
