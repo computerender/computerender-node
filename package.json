@@ -2,11 +2,10 @@
   "name": "computerender",
   "type": "module",
   "version": "0.0.1",
-  "packageManager": "pnpm@7.12.0",
   "description": "",
   "author": "computerender <peter@computerender.com>",
   "license": "MIT",
-  "homepage": "https://computerender.com",
+  "homepage": "https://github.com/computerender/computerender-node",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/computerender/computerender-node.git"
