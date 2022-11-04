@@ -1,0 +1,63 @@
+{
+  "name": "computerender",
+  "type": "module",
+  "version": "0.0.1",
+  "packageManager": "pnpm@7.12.0",
+  "description": "",
+  "author": "computerender <peter@computerender.com>",
+  "license": "MIT",
+  "homepage": "https://computerender.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/computerender/computerender-node.git"
+  },
+  "bugs": "https://github.com/computerender/computerender-node/issues",
+  "keywords": [],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./dist/index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "dev": "unbuild --stub",
+    "lint": "eslint .",
+    "prepublishOnly": "npm run build",
+    "release": "bumpp && npm publish",
+    "start": "esno src/index.ts",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.18",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "bumpp": "^8.2.1",
+    "eslint": "^8.23.1",
+    "eslint-plugin-import": "^2.26.0",
+    "esno": "^0.16.3",
+    "typescript": "^4.8.3",
+    "unbuild": "^0.8.11",
+    "vite": "^3.1.2",
+    "vitest": "^0.23.4"
+  },
+  "dependencies": {
+    "axios": "^1.1.3"
+  }
+}
