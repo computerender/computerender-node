@@ -9,7 +9,7 @@ import {Computerender} from "computerender"
 
 const cr = new Computerender("sk_your_api_key_here");
 const prompt = "cat with sunglasses";
-const imageResult = cr.generateImage({prompt});
+const imageResult = await cr.generateImage({prompt});
 
 // Optionally write to file 
 imageResult.pipe(fs.createWriteStream(prompt + ".jpg"))

@@ -31,7 +31,7 @@ const getImage = async (params: GenerateParams, apiKey: string) => {
     responseType: "stream"
   });
   if (res.status !== 200) throw new Error(
-    "Error getting image " + res.status + " " + res.data);
+    `Error getting image ${res.status} ${res.statusText} ${res.data}`);
   return res.data as NodeJS.ReadStream;
 }
 
