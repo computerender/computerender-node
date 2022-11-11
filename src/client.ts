@@ -12,7 +12,9 @@ export interface GenerateParams {
     extension?: "png" | "jpg"
 }
 
-const getImage = async (params: GenerateParams, apiKey: string) => {
+const getImage = async (
+  params: GenerateParams, apiKey: string,
+  methodType: ("generate" | "cost"), ) => {
   const promptEncoded = encodeURIComponent(params.prompt);
   const softParams = params as Record<string, any>;
   const usedParams = {} as Record<string, string>;
@@ -26,7 +28,7 @@ const getImage = async (params: GenerateParams, apiKey: string) => {
     headers:{
       "Authorization": `X-API-Key ${apiKey}`,
     },
-    baseURL: "https://api.computerender.com/generate/",
+    baseURL: `https://api.computerender.com/${methodType}/`,
     url: promptEncoded + paramsEncoded,
     responseType: "stream"
   });
@@ -43,6 +45,6 @@ export class Computerender {
     }
 
     generateImage(params: GenerateParams) {
-      return getImage(params, this.apiKey);
+      return getImage(params, this.apiKey, "generate");
     }
 }
