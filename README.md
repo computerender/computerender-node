@@ -5,14 +5,14 @@
 
 ### Usage:  
 ```javascript
-import {Computerender} from "computerender"
+import {Computerender} from "computerender";
 
 const cr = new Computerender("sk_your_api_key_here");
 const prompt = "cat with sunglasses";
 const imageResult = await cr.generateImage({prompt});
 
 // Optionally write to file 
-imageResult.pipe(fs.createWriteStream(prompt + ".jpg"))
+imageResult.pipe(fs.createWriteStream(prompt + ".jpg"));
 ```
 <img src="https://api.computerender.com/generate/cat-with-sunglasses.jpg" 
 alt="cat" width="256"/>
