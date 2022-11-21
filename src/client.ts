@@ -38,7 +38,7 @@ export class Computerender {
     apiKey: string
     baseURL = "https://api.computerender.com/"
 
-    constructor(apiKey: string | undefined) {
+    constructor(apiKey ? : string) {
         if (apiKey === undefined) {
           this.apiKey = process.env.CR_KEY || "CR_KEY env var not found"
         } else {
