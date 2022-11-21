@@ -1,7 +1,7 @@
 {
   "name": "computerender",
   "type": "module",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "client for the computerender API",
   "author": "computerender <peter@computerender.com>",
   "license": "MIT",
