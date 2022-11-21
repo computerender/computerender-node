@@ -1,4 +1,5 @@
 import axios from "axios";
+import FormData from "form-data";
 
 export interface GenerateParams {
     prompt: string
@@ -8,43 +9,40 @@ export interface GenerateParams {
     guidance?: number
     iterations?: number
     eta?: number
+    img?: Buffer
+    strength?: number
     modelVersion?: string
     extension?: "png" | "jpg"
 }
 
-const getImage = async (
-  params: GenerateParams, apiKey: string,
-  methodType: ("generate" | "cost"), ) => {
-  const promptEncoded = encodeURIComponent(params.prompt);
-  const softParams = params as Record<string, any>;
-  const usedParams = {} as Record<string, string>;
-  for (const key of Object.keys(params)) {
-    if (key === "prompt") continue;
-    usedParams[key] = softParams[key].toString();
+const getImageForm = async (
+  params: GenerateParams, baseURL: string, apiKey: string) => {
+  const method = "generate/";
+  const formData = new FormData();
+  for (const [key, val] of Object.entries(params)) {
+    formData.append(key, val);
   }
-  const paramsEncoded = "?" + new URLSearchParams(usedParams).toString();
-  const res = await axios.request({
-    method: "get",
-    headers:{
-      "Authorization": `X-API-Key ${apiKey}`,
-    },
-    baseURL: `https://api.computerender.com/${methodType}/`,
-    url: promptEncoded + paramsEncoded,
-    responseType: "stream"
-  });
+  const headers = formData.getHeaders();
+  headers["Authorization"] = `X-API-Key ${apiKey}`;
+  const res = await axios.post(
+    baseURL + method, 
+    formData, 
+    {headers, responseType: "arraybuffer"},
+  );
   if (res.status !== 200) throw new Error(
     `Error getting image ${res.status} ${res.statusText} ${res.data}`);
-  return res.data as NodeJS.ReadStream;
-}
+  return Buffer.from(res.data, "binary");
+};
 
 export class Computerender {
-    apiKey: string;
+    apiKey: string
+    baseURL = "https://api.computerender.com/"
 
     constructor(apiKey: string) {
         this.apiKey = apiKey;
     }
 
     generateImage(params: GenerateParams) {
-      return getImage(params, this.apiKey, "generate");
+      return getImageForm(params, this.baseURL, this.apiKey);
     }
 }
