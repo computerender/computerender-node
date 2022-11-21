@@ -54,4 +54,6 @@ jobs:
         run: npm run build
 
       - name: Test
+        env:
+          CR_KEY: ${{ secrets.CR_KEY }}
         run: npm run test
