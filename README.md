@@ -23,7 +23,9 @@ fs.writeFileSync(prompt + ".jpg", imageResult);
 
 /* -- image to image -- */
 const newPrompt = "van gough painting of " + prompt;
-const styledResult = await cr.generateImage({prompt: newPrompt, img: imageResult});
+const styledResult = await cr.generateImage(
+    {prompt: newPrompt, img: imageResult}
+);
 
 // Optionally write to file
 fs.writeFileSync(newPrompt + ".jpg", styledResult);
