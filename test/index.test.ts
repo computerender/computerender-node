@@ -26,10 +26,10 @@ describe("should", () => {
 describe("should", () => {
   it("image to image", async () => {
     const cr = new Computerender(apiKey);
-    const prompt = "portrait of a woman wearing sunglasses";
+    const prompt = "a cow wearing sunglasses";
     const result = await cr.generateImage({prompt});
     fs.writeFileSync(prompt + ".jpg", result);
-    const newPrompt = "abstract van gough painting of " + prompt;
+    const newPrompt = "van gough style painting of " + prompt;
     const img = result; // "oh baby"; // result.imageData.toString("base64");
     const styledResult = await cr.generateImage({prompt: newPrompt, img});
     fs.writeFileSync(newPrompt + ".jpg", styledResult);
