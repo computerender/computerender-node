@@ -38,8 +38,12 @@ export class Computerender {
     apiKey: string
     baseURL = "https://api.computerender.com/"
 
-    constructor(apiKey: string) {
-        this.apiKey = apiKey;
+    constructor(apiKey: string | undefined) {
+        if (apiKey === undefined) {
+          this.apiKey = process.env.CR_KEY || "CR_KEY env var not found"
+        } else {
+          this.apiKey = apiKey;
+        }
     }
 
     generateImage(params: GenerateParams) {

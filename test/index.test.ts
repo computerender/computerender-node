@@ -1,6 +1,5 @@
 import { describe, expect, it } from "vitest";
 import fs from "fs";
-import { pipeline } from "stream/promises";
 
 import { Computerender } from "../dist/index";
 
@@ -15,7 +14,7 @@ describe("should", () => {
 
 describe("should", () => {
   it("image gen", async () => {
-    const cr = new Computerender(apiKey);
+    const cr = new Computerender();
     const prompt = "dog wearing sunglasses";
     const result = await cr.generateImage({prompt});
     //  write to file 
