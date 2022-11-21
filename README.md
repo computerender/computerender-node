@@ -1,6 +1,10 @@
 # Node client for [computerender](https://computerender.com)
+![workflow](https://github.com/computerender/computerender-node/actions/workflows/ci.yml/badge.svg)
 
 An easy to use image generation API
+
+### Updates:
+- v0.1: Now supports img2img!
 
 ### Install:  
 ```npm i computerender```
