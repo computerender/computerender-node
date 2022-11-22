@@ -1,4 +1,5 @@
 # Node client for [computerender](https://computerender.com)
+[![npm version](https://badge.fury.io/js/computerender.svg)](https://badge.fury.io/js/computerender)
 ![workflow](https://github.com/computerender/computerender-node/actions/workflows/ci.yml/badge.svg)
 
 An easy to use image generation API
