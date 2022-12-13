@@ -16,16 +16,18 @@ export interface GenerateParams {
 }
 
 const getImageForm = async (
-  params: GenerateParams, baseURL: string, apiKey: string) => {
-  const method = "generate/";
+  params: GenerateParams,
+  route: string,
+  baseURL: string,
+  authHeader: string) => {
   const formData = new FormData();
   for (const [key, val] of Object.entries(params)) {
     formData.append(key, val);
   }
   const headers = formData.getHeaders();
-  headers["Authorization"] = `X-API-Key ${apiKey}`;
+  headers["Authorization"] = authHeader;
   const res = await axios.post(
-    baseURL + method, 
+    baseURL + route, 
     formData, 
     {headers, responseType: "arraybuffer"},
   );
@@ -35,18 +37,35 @@ const getImageForm = async (
 };
 
 export class Computerender {
-    apiKey: string
+    authHeader: string
     baseURL = "https://api.computerender.com/"
-
+    
     constructor(apiKey ? : string) {
         if (apiKey === undefined) {
-          this.apiKey = process.env.CR_KEY || "CR_KEY env var not found"
+          if (process.env.CR_KEY) {
+            this.authHeader = `X-API-Key ${process.env.CR_KEY}`
+          } else {
+            throw new Error("No API key provided and no CR_KEY env variable found");
+          }
+        } else if (apiKey.startsWith("sk_")) {
+          // use api key
+          this.authHeader = `X-API-Key ${apiKey}`;
+        } else if (apiKey === "use_fb_token") {
+          // use bearer token
+          this.authHeader = "";
         } else {
-          this.apiKey = apiKey;
+          throw new Error("apiKey format was not recognized");
         }
     }
-
+    
     generateImage(params: GenerateParams) {
-      return getImageForm(params, this.baseURL, this.apiKey);
+      return getImageForm(params, "generate/", this.baseURL, this.authHeader);
     }
+
+    userGenerateImage(params: GenerateParams, fbToken: string) {
+      return getImageForm(
+        params, "user-generate/", this.baseURL,
+        `Bearer ${fbToken}`);
+    }
+    
 }

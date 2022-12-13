@@ -7,8 +7,8 @@ const apiKey = process.env.CR_KEY || "invalid";
 
 describe("should", () => {
   it("Instance", () => {
-    const instance = new Computerender("test_key");
-    expect(instance.apiKey).toEqual("test_key");
+    const instance = new Computerender("sk_test_key");
+    expect(instance.authHeader).toEqual("X-API-Key sk_test_key");
   });
 });
 
