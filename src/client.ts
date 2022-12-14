@@ -24,8 +24,10 @@ const getImageForm = async (
   for (const [key, val] of Object.entries(params)) {
     formData.append(key, val);
   }
-  const headers = formData.getHeaders();
-  headers["Authorization"] = authHeader;
+  const headers = {
+    "Content-Type": "multipart/form-data",
+    "Authorization": authHeader
+  };
   const res = await axios.post(
     baseURL + route, 
     formData, 
