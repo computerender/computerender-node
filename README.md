@@ -15,8 +15,8 @@ An easy to use image generation API
 import fs from "fs";
 import {Computerender} from "computerender";
 
-// Automatically tries CR_KEY 
-// environment variable if no key is provided
+// Automatically tries environment variable 
+// CR_KEY when no key is provided
 const cr = new Computerender("sk_your_api_key_here");
 
 /* -- text to image -- */
