@@ -1,3 +1,4 @@
+import {File} from "@web-std/file";
 import axios from "axios";
 import FormData from "form-data";
 
@@ -9,7 +10,7 @@ export interface GenerateParams {
     guidance?: number
     iterations?: number
     eta?: number
-    img?: Buffer
+    img?: Buffer | typeof File
     strength?: number
     modelVersion?: string
     extension?: "png" | "jpg"
