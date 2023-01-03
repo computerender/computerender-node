@@ -1,6 +1,10 @@
-import {File} from "@web-std/file";
 import axios from "axios";
 import FormData from "form-data";
+
+interface BrowserFile {
+  arrayBuffer: () => Promise<ArrayBuffer>
+  name: string
+}
 
 export interface GenerateParams {
     prompt: string
@@ -10,7 +14,7 @@ export interface GenerateParams {
     guidance?: number
     iterations?: number
     eta?: number
-    img?: Buffer | typeof File
+    img?: Buffer | BrowserFile
     strength?: number
     modelVersion?: string
     extension?: "png" | "jpg"
