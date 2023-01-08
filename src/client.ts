@@ -38,6 +38,7 @@ const getImageForm = async (
     formData, 
     {headers, responseType: "arraybuffer"},
   );
+  // TODO add exception types for different error types here
   if (res.status !== 200) throw new Error(
     `Error getting image ${res.status} ${res.statusText} ${res.data}`);
   return Buffer.from(res.data, "binary");
