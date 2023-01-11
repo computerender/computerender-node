@@ -1,2 +1,2 @@
-import { Computerender } from "./client";
-export { Computerender };
+import { Computerender, InvalidRequestError, InternalServerError} from "./client";
+export { Computerender, InvalidRequestError, InternalServerError};

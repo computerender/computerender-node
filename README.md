@@ -5,6 +5,8 @@
 An easy to use image generation API
 
 ### Updates:
+- v0.3: Throws errors with custom types
+- v0.2: Heavy deps removed
 - v0.1: Now supports img2img!
 
 ### Install:  
