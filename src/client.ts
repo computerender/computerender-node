@@ -1,9 +1,32 @@
-import axios from "axios";
+import axios, {AxiosError} from "axios";
 import FormData from "form-data";
 
+// polyfill for node/web interoperability 
 interface BrowserFile {
   arrayBuffer: () => Promise<ArrayBuffer>
   name: string
+}
+
+interface ErrorResponse {
+  status: ("success" | "error"),
+  message: string,
+  errorType: string,
+}
+
+export class InvalidRequestError extends Error {
+  errorInfo: ErrorResponse
+  constructor(message: string, data: ErrorResponse) {
+    super(message);
+    this.errorInfo = data;
+  }
+}
+
+export class InternalServerError extends Error {
+  errorInfo: ErrorResponse
+  constructor(message: string, data: ErrorResponse) {
+    super(message);
+    this.errorInfo = data; 
+  }
 }
 
 export interface GenerateParams {
@@ -33,15 +56,25 @@ const getImageForm = async (
     "Content-Type": "multipart/form-data",
     "Authorization": authHeader
   };
-  const res = await axios.post(
-    baseURL + route, 
-    formData, 
-    {headers, responseType: "arraybuffer"},
-  );
-  // TODO add exception types for different error types here
-  if (res.status !== 200) throw new Error(
-    `Error getting image ${res.status} ${res.statusText} ${res.data}`);
-  return Buffer.from(res.data, "binary");
+  try {
+    const res = await axios.post(
+      baseURL + route,
+      formData,
+      {headers, responseType: "arraybuffer"},
+    );
+    return Buffer.from(res.data, "binary");
+  } catch (err: any) {
+    if (err instanceof AxiosError && axios.isAxiosError(err) && err.response) {
+      const status = err.response.status;
+      if (status >= 400 && status < 500) {
+        throw new InvalidRequestError("Invalid request", err.response.data);
+      } else {
+        throw new InternalServerError("Internal Server Error", err.response.data);
+      }
+    } else {
+      throw new Error(err);
+    }
+  }
 };
 
 export class Computerender {

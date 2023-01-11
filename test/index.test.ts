@@ -36,3 +36,13 @@ describe("should", () => {
     expect(styledResult).toBeDefined();
   }, 8000);
 });
+
+
+describe("should", () => {
+  it("throws on invalid", async () => {
+    const cr = new Computerender(apiKey);
+    await expect(cr.generateImage({"prompt": "test", "w": 4}))
+      .rejects
+      .toThrowError("Invalid");
+  });
+});
