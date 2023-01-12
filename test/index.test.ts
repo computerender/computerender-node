@@ -29,7 +29,7 @@ describe("should", () => {
     const prompt = "a cow wearing sunglasses";
     const result = await cr.generateImage({prompt});
     fs.writeFileSync(prompt + ".jpg", result);
-    const newPrompt = "van gough style painting of " + prompt;
+    const newPrompt = "van gogh style painting of " + prompt;
     const img = result; // "oh baby"; // result.imageData.toString("base64");
     const styledResult = await cr.generateImage({prompt: newPrompt, img});
     fs.writeFileSync(newPrompt + ".jpg", styledResult);

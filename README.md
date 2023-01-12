@@ -12,7 +12,7 @@ An easy to use image generation API
 ### Install:  
 ```npm i computerender```
 
-### Usage:  
+### Usage:
 ```javascript
 import fs from "fs";
 import {Computerender} from "computerender";
