@@ -63,16 +63,24 @@ const getImageForm = async (
       {headers, responseType: "arraybuffer"},
     );
     return Buffer.from(res.data, "binary");
-  } catch (err: any) {
+  } catch (err) {
     if (err instanceof AxiosError && axios.isAxiosError(err) && err.response) {
       const status = err.response.status;
+      // Convert ArrayBuffer response to json for error handling
+      const jsonError = JSON.parse(
+        String.fromCharCode.apply(
+          null,
+          Array.from(new Uint8Array(err.response.data))
+        )) as ErrorResponse;
       if (status >= 400 && status < 500) {
-        throw new InvalidRequestError("Invalid request", err.response.data);
+        throw new InvalidRequestError(
+          "Invalid request", jsonError);
       } else {
-        throw new InternalServerError("Internal Server Error", err.response.data);
+        throw new InternalServerError(
+          "Internal Server Error", jsonError);
       }
     } else {
-      throw new Error(err);
+      throw new Error(err as any);
     }
   }
 };
